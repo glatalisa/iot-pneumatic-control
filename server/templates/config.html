@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_config.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_modal.css') }}">
+</head>
+
+<body>
+    <img class="image-gradient" src="{{ url_for('static', filename='img/gradient.png')}}" alt="gradient">
+    <div class="layer-blur"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">Smart Lab</h1>
+
+            <nav>
+                <a href="{{ url_for('welcome')}}">Home</a>
+                <a href="#" id="btn-open-dashboard">Dashboard</a>
+            </nav>
+
+        </header>
+
+        <main>
+            <div class="tittle">
+                <h1>CONFIGURAÇÃO DO SISTEMA</h1>
+                <p>Configure a quantidade de atuadores e o modo de operação desejado</p>
+            </div>
+
+            <div class="settings-card">
+                <div class="setting-item slider-group">
+                    <label>Quantidade de Atuadores</label>
+                    <div class="slider-container">
+                        <div class="segmented-bar" id="segmented-bar">
+                            <div class="segment" data-value="1"></div>
+                            <div class="segment" data-value="2"></div>
+                            <div class="segment" data-value="3"></div>
+                            <div class="segment" data-value="4"></div>
+                        </div>
+                        <div id="slider-value" class="slider-value">1</div>
+                    </div>
+                </div>
+
+                <div class="setting-item mode-group">
+                    <label>Modo de Operação</label>
+                    <div class="mode-options">
+
+                        <div class="mode-option active" data-mode="manual">
+                            <h3>MANUAL</h3>
+                            <p>Controle individual</p>
+                        </div>
+
+                        <div class="mode-option" data-mode="sequencial">
+                            <h3>SEQUENCIAL</h3>
+                            <p>Sequências automáticas</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer-buttons">
+                <a href="{{ url_for('welcome') }}" class="btn btn-secondary">Voltar</a>
+                <button class="btn btn-primary">Iniciar Sistema</button>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <div id="dashboard-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span id="btn-close-modal" class="close-modal-btn">&times;</span>
+            
+            <h2 style="border-bottom: 1px solid #38383a; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Status da Conexão</h2>
+            
+            <div class="modal-grid-connections">
+                
+                <div class="conn-card">
+                    <h4>Servidor</h4>
+                    <div id="conn-server-status" class="conn-value txt-cinza">Conectando...</div>
+                    <div class="conn-detail">Via Socket.IO</div>
+                </div>
+
+                <div class="conn-card">
+                    <h4>Broker MQTT</h4>
+                    <div id="conn-mqtt-status" class="conn-value txt-cinza">Aguardando dados...</div>
+                    <div class="conn-detail">Fluxo de mensagens</div>
+                </div>
+
+                <div class="conn-card">
+                    <h4>Wi-Fi do ESP</h4>
+                    <div id="conn-wifi-status" class="conn-value txt-cinza">--</div>
+                    <div id="conn-wifi-rssi" class="conn-detail">Sinal: -- dBm</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts_modal.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='scripts_config.js') }}"></script>
+
+</body>
+
+</html>

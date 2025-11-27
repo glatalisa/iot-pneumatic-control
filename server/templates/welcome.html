@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_welcome.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_modal.css') }}">
+</head>
+
+<body>
+    <img class="image-gradient" src="{{ url_for('static', filename='img/gradient.png')}}" alt="gradient">
+    <div class="layer-blur"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">Smart Lab</h1>
+
+            <nav>
+                <a href="#">Home</a>
+                <a href="#" id="btn-open-dashboard">Dashboard</a>
+            </nav>
+
+            <a href="{{ url_for('config_page')}}">
+                <button class="btn-config">Iniciar</button>
+            </a>
+
+        </header>
+
+        <main>
+            <div class="content">
+
+                <div class="tag-box">
+                    <div class="tag">MODO</div>
+                </div>
+
+                <div class="text-viewport">
+                    <div class="text-slide active">
+                        <h1>CONTROLE<br>MANUAL</h1>
+                        <p class="description">
+                            No modo manual, o usuário pode comandar individualmente cada atuador pneumático,
+                            observando na prática as respostas do circuito. Uma forma simples e intuitiva de compreender
+                            o comportamento dos componentes e a lógica da automação.
+                        </p>
+                    </div>
+
+                    <div class="text-slide">
+                        <h1>CONTROLE<br>SEQUENCIAL</h1>
+                        <p class="description">
+                            No modo sequencial, o sistema executa uma série de etapas predefinidas,
+                            acionando os atuadores na ordem correta. É uma forma prática de compreender o funcionamento
+                            de
+                            circuitos automatizados e a importância da lógica de comando.
+                        </p>
+                    </div>
+
+                </div>
+                
+                <div class="buttons">
+                    <a href="{{ url_for('config_page')}}" class="btn-iniciar">Iniciar</a>
+                </div>
+
+            </div>
+        </main>
+
+        <div class="arrows">
+            <button id="up">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-caret-up-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                </svg>
+            </button>
+            <button id="down">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" class="bi bi-caret-down-fill"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+            </button>
+        </div>
+
+        <spline-viewer class="robot-3d"
+            url="https://prod.spline.design/4hyVW3-1kDNWchoS/scene.splinecode"></spline-viewer>
+
+    </div>
+
+    <div id="dashboard-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span id="btn-close-modal" class="close-modal-btn">&times;</span>
+            
+            <h2 style="border-bottom: 1px solid #38383a; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">Status da Conexão</h2>
+            
+            <div class="modal-grid-connections">
+                
+                <div class="conn-card">
+                    <h4>Servidor</h4>
+                    <div id="conn-server-status" class="conn-value txt-cinza">Conectando...</div>
+                    <div class="conn-detail">Via Socket.IO</div>
+                </div>
+
+                <div class="conn-card">
+                    <h4>Broker MQTT</h4>
+                    <div id="conn-mqtt-status" class="conn-value txt-cinza">Aguardando dados...</div>
+                    <div class="conn-detail">Fluxo de mensagens</div>
+                </div>
+
+                <div class="conn-card">
+                    <h4>Wi-Fi do ESP</h4>
+                    <div id="conn-wifi-status" class="conn-value txt-cinza">--</div>
+                    <div id="conn-wifi-rssi" class="conn-detail">Sinal: -- dBm</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts_modal.js') }}"></script>
+
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.90/build/spline-viewer.js"></script>
+    <script src="{{ url_for('static', filename='scripts_welcome.js')}}"></script>
+
+</body>
+
+</html>
