@@ -9,14 +9,14 @@ const char* WIFI_SSID   = "NOME_DA_SUA_REDE_WIFI";
 const char* WIFI_SENHA  = "SENHA_DA_SUA_REDE_WIFI";
 const char* MQTT_BROKER = "IP_DO_SEU_SERVIDOR";
 const int   MQTT_PORT   = 1883;
-const char* CLIENT_ID   = "ESP8266_Bancada_PFC"
+const char* CLIENT_ID   = "ESP8266_Bancada_PFC";
 
 // =================================================================================
 // 2. DEFINIÇÃO DE HARDWARE (PINOS)
 // =================================================================================
 
 // --- Relés (Saídas) ---
-const int RELAY_PIN_1     = D1; // Atuador 1 (Mola)
+const int RELAY_PIN_1     = D0; // Atuador 1 (Mola)
 const int RELAY_PIN_2     = D2; // Atuador 2 (Mola)
 const int RELAY_PIN_3_ADV = D5; // Atuador 3 (Duplo - Avanço)
 const int RELAY_PIN_3_REC = D6; // Atuador 3 (Duplo - Recuo)
@@ -35,7 +35,7 @@ const int RELAY_PIN_4_REC = -1; // Atuador 4 (Duplo - Recuo) *Desativado
 
 const int SENSOR_PIN_1_ADV = D7;  // GPIO13
 const int SENSOR_PIN_1_REC = D3;  // GPIO0
-const int SENSOR_PIN_2_ADV = D0;  // GPIO16
+const int SENSOR_PIN_2_ADV = D1;  // GPIO5
 const int SENSOR_PIN_2_REC = D4;  // GPIO2
 const int SENSOR_PIN_3_ADV = 3;   // GPIO3 (RX)
 const int SENSOR_PIN_3_REC = 1;   // GPIO1 (TX)
@@ -256,9 +256,9 @@ void setup() {
 
   WiFi.begin(WIFI_SSID, WIFI_SENHA);
   int wifi_retries = 0;
-  while (WiFi.status() != WL_CONNECTED && retries < 30) { 
+  while (WiFi.status() != WL_CONNECTED && wifi_retries < 30) { 
     delay(500); 
-    retries++; 
+    wifi_retries++; 
   }
 
   if (WiFi.status() == WL_CONNECTED){
@@ -310,6 +310,6 @@ void loop() {
 
     char buffer[256];
     serializeJson(wifiDoc, buffer);
-    mqttClient.publish(TOPICO_STATUS, buffer);
+    mqttClient.publish(TOPIC_STATUS, buffer);
   }
 }
